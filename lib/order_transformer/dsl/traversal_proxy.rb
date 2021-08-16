@@ -1,0 +1,59 @@
+module OrderTransformer
+  module DSL
+    class TraversalProxy
+      include DefaultTransformers
+
+      attr_reader :each_traversal_proxies, :within_traversal_proxies, :transformation_definitions
+
+      def __create_transformation
+        result = @transformation_definitions.map do |definition|
+          Transformation::SimpleTransformation.new **definition
+        end
+
+        within_traversal_proxies.each do |definiton|
+          result.push Transformation::WithinTransformation.new key_name: definiton[:key_name],
+                                                               optional: definiton[:optional],
+                                                               transformations: definiton[:proxy].__create_transformation
+        end
+
+        each_traversal_proxies.each do |definiton|
+          result.push Transformation::WitheachTransformation.new key_name: definiton[:key_name],
+                                                                 optional: definiton[:optional],
+                                                                 transformations: definiton[:proxy].__create_transformation
+        end
+
+        result
+      end
+
+      def initialize
+        super
+        @each_traversal_proxies = []
+        @within_traversal_proxies = []
+        @transformation_definitions = []
+      end
+
+      def within(name, optional: true, &block)
+        traversal_proxy = TraversalProxy.new
+        traversal_proxy.instance_eval(&block) if block
+
+        within_traversal_proxies.push({ key_name: name.to_s, proxy: traversal_proxy, optional: optional })
+      end
+
+      def with_each(name, optional: true, &block)
+        traversal_proxy = TraversalProxy.new
+        traversal_proxy.instance_eval(&block) if block
+
+        each_traversal_proxies.push({ key_name: name.to_s, proxy: traversal_proxy, optional: optional })
+      end
+
+      def transform(*key_names, to:, optional: true, transformer: ->(*value) { value })
+        @transformation_definitions.push({
+                                           key_names: key_names,
+                                           to: to,
+                                           transformer: transformer,
+                                           optional: optional,
+                                         })
+      end
+    end
+  end
+end
