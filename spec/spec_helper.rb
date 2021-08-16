@@ -1,5 +1,6 @@
 require "bundler/setup"
 require "order_transformer"
+require "super_diff/rspec"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
