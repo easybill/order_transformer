@@ -42,11 +42,10 @@ module OrderTransformer
       def stacked_do(key_name, item, &block)
         old_current_subtree = current_subtree
         self.current_subtree = item
-        result = nil
 
         navigation_stack.push key_name
 
-        result = block.call if block
+        result = block&.call
 
         navigation_stack.pop
 
