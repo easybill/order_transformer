@@ -29,6 +29,14 @@ module OrderTransformer
 
         traversal_proxies[name.to_s] = {proxy: traversal_proxy, as: keyword_args[:as]}
       end
+
+      def pretty_print(pp)
+        pp.group(1, "#<OrderProxy", ">") do
+          pp.breakable
+          pp.text "@traversal_proxies="
+          @traversal_proxies.pretty_print(pp)
+        end
+      end
     end
   end
 end

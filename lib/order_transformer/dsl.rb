@@ -1,8 +1,8 @@
-require_relative 'dsl/method_chain'
-require_relative 'dsl/default_transformers'
-require_relative 'dsl/definition_proxy'
-require_relative 'dsl/order_proxy'
-require_relative 'dsl/traversal_proxy'
+require_relative "dsl/method_chain"
+require_relative "dsl/default_transformers"
+require_relative "dsl/definition_proxy"
+require_relative "dsl/order_proxy"
+require_relative "dsl/traversal_proxy"
 
 module OrderTransformer
   module DSL
@@ -17,6 +17,10 @@ module OrderTransformer
       registry[name][version] = importer
     end
 
+    def self.get_raw(name:, version:)
+      registry[name][version]
+    end
+
     def self.get(name:, version:)
       registry[name][version].__create_transformation
     end
@@ -26,7 +30,7 @@ module OrderTransformer
     end
 
     def self.define(name, version, &block)
-      definition_proxy = DefinitionProxy.new
+      definition_proxy = DefinitionProxy.new(name: name, version: version)
 
       definition_proxy.instance_eval(&block) if block
 
