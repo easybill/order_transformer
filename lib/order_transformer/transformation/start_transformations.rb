@@ -7,8 +7,8 @@ module OrderTransformer
         @start_transformations = start_transformations
       end
 
-      def execute(source_data:)
-        start_transformations.reduce({}) { |result, transformation| result.merge(transformation.execute(source_data: source_data)) }
+      def execute(source_data:, context:)
+        start_transformations.reduce({}) { |result, transformation| result.merge(transformation.execute(source_data: source_data, context: context)) }
       end
     end
   end

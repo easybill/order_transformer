@@ -7,19 +7,21 @@ module OrderTransformer
 
       def __create_transformation
         result = @transformation_definitions.map do |definition|
-          Transformation::SimpleTransformation.new **definition
+          definition = definition.clone
+          type = definition.delete :type
+          type == :const ? Transformation::ConstTransformation.new(**definition) : Transformation::SimpleTransformation.new(**definition)
         end
 
         within_traversal_proxies.each do |definiton|
           result.push Transformation::WithinTransformation.new key_name: definiton[:key_name],
-                                                               optional: definiton[:optional],
-                                                               transformations: definiton[:proxy].__create_transformation
+            optional: definiton[:optional],
+            transformations: definiton[:proxy].__create_transformation
         end
 
         each_traversal_proxies.each do |definiton|
           result.push Transformation::WitheachTransformation.new key_name: definiton[:key_name],
-                                                                 optional: definiton[:optional],
-                                                                 transformations: definiton[:proxy].__create_transformation
+            optional: definiton[:optional],
+            transformations: definiton[:proxy].__create_transformation
         end
 
         result
@@ -36,23 +38,32 @@ module OrderTransformer
         traversal_proxy = TraversalProxy.new
         traversal_proxy.instance_eval(&block) if block
 
-        within_traversal_proxies.push({ key_name: name.to_s, proxy: traversal_proxy, optional: optional })
+        within_traversal_proxies.push({key_name: name.to_s, proxy: traversal_proxy, optional: optional})
       end
 
       def with_each(name, optional: true, &block)
         traversal_proxy = TraversalProxy.new
         traversal_proxy.instance_eval(&block) if block
 
-        each_traversal_proxies.push({ key_name: name.to_s, proxy: traversal_proxy, optional: optional })
+        each_traversal_proxies.push({key_name: name.to_s, proxy: traversal_proxy, optional: optional})
       end
 
-      def transform(*key_names, to:, optional: true, transformer: ->(*value) { value })
+      def transform(*key_names, to:, optional: true, transformer: ->(value) { value })
         @transformation_definitions.push({
-                                           key_names: key_names,
-                                           to: to,
-                                           transformer: transformer,
-                                           optional: optional,
-                                         })
+          type: :simple,
+          key_names: key_names,
+          to: to,
+          transformer: transformer,
+          optional: optional
+        })
+      end
+
+      def const(to:, value:)
+        @transformation_definitions.push({
+          type: :const,
+          to: to,
+          value: value
+        })
       end
     end
   end

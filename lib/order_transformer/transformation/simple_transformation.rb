@@ -10,18 +10,18 @@ module OrderTransformer
         @transformer = transformer
       end
 
-      def execute(source_data:)
+      def execute(source_data:, context:)
         missing_keys = key_names.filter { |key_name| !source_data.key? key_name }
 
-        raise "Missing keys #{missing_keys}" unless optional
+        raise "Missing keys #{missing_keys}" unless optional || missing_keys.size.zero?
 
         return {} if key_names.size == missing_keys.size
 
         args = key_names.map { |key_name| source_data.fetch(key_name, nil) }
 
-        result = transformer.call(*args)
+        result = CleanContextContainer.new(context: context).instance_exec(*args, &transformer)
 
-        { to => result }
+        {to => result}
       end
     end
   end

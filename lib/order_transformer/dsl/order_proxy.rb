@@ -4,10 +4,10 @@ module OrderTransformer
       attr_reader :traversal_proxies
 
       def __create_transformation
-        res = traversal_proxies.reduce([]) do |result, (name, traversal_proxy)|
-          result.push Transformation::StartTransformation.new key_name: name, transformations: traversal_proxy.__create_transformation
-
-          result
+        res = traversal_proxies.each_with_object([]) do |(name, config), result|
+          result.push Transformation::StartTransformation.new key_name: name,
+            transformations: config[:proxy].__create_transformation,
+            as: config[:as]
         end
 
         Transformation::StartTransformations.new start_transformations: res
@@ -22,12 +22,12 @@ module OrderTransformer
         true
       end
 
-      def method_missing(name, *args, &block)
+      def method_missing(name, *args, **keyword_args, &block)
         traversal_proxy = TraversalProxy.new
 
         traversal_proxy.instance_eval(&block) if block
 
-        traversal_proxies[name.to_s] = traversal_proxy
+        traversal_proxies[name.to_s] = {proxy: traversal_proxy, as: keyword_args[:as]}
       end
     end
   end

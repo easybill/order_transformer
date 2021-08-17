@@ -14,7 +14,13 @@ module OrderTransformer
       end
 
       def call(*args)
-        methods.reduce(args) { |last_result, method| method.call *last_result }
+        methods.reduce(args) { |last_result, method| method.call(*last_result) }
+      end
+
+      def to_proc
+        # local_methods = methods #
+        #-> (*args) {  local_methods.reduce(args) { |last_result, method| method.call *last_result } }
+        method(:call).to_proc
       end
     end
   end

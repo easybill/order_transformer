@@ -6,7 +6,7 @@ module OrderTransformer
         order_proxy.__create_transformation
       end
 
-      def order(&block)
+      def definition(&block)
         @order_proxy = OrderProxy.new
 
         order_proxy.instance_eval(&block) if block
