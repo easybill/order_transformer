@@ -489,8 +489,6 @@ RSpec.describe OrderTransformer do
 
     result = transformations.execute(source_data: example_data, context: context)
 
-    # pp OrderTransformer::DSL.get_raw(name: :smartstore, version: :v1)
-
     expect(result).to eq(expected_result)
   end
 end
