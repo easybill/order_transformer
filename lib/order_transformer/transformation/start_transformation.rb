@@ -10,6 +10,8 @@ module OrderTransformer
       end
 
       def execute(**args)
+        args[:source_data] = DataSourceNavigator.new(source: args[:source_data])
+
         {key_name => if as == :array
                        array_result(**args)
                      else

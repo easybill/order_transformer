@@ -485,7 +485,11 @@ RSpec.describe OrderTransformer do
     }
 
     context = double("Context", fetch_from_api: "I got it from the api")
-    result = OrderTransformer::DSL.get(name: :smartstore, version: :v1).execute(source_data: example_data, context: context)
+    transformations = OrderTransformer::DSL.get(name: :smartstore, version: :v1)
+
+    result = transformations.execute(source_data: example_data, context: context)
+
+    # pp OrderTransformer::DSL.get_raw(name: :smartstore, version: :v1)
 
     expect(result).to eq(expected_result)
   end

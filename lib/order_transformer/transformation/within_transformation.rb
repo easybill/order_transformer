@@ -14,9 +14,9 @@ module OrderTransformer
 
         return {} unless source_data.key?(key_name)
 
-        next_source_data = source_data.fetch(key_name, nil)
-
-        transformations.reduce({}) { |result, transformation| result.merge(transformation.execute(source_data: next_source_data, context: context)) }
+        source_data.within(key_name) do
+          transformations.reduce({}) { |result, transformation| result.merge(transformation.execute(source_data: source_data, context: context)) }
+        end
       end
     end
   end

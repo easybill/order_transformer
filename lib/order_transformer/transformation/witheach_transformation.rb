@@ -14,10 +14,10 @@ module OrderTransformer
 
         return [] unless source_data.key?(key_name)
 
-        next_source_data = source_data.fetch(key_name, nil) || []
-
-        next_source_data.map do |next_source_data_item|
-          transformations.reduce({}) { |result, transformation| result.merge(transformation.execute(source_data: next_source_data_item, context: context)) }
+        source_data.within(key_name) do
+          source_data.map do |next_source_data_item|
+            transformations.reduce({}) { |result, transformation| result.merge(transformation.execute(source_data: next_source_data_item, context: context)) }
+          end
         end
       end
     end

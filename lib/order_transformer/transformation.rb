@@ -1,4 +1,5 @@
 require_relative "transformation/clean_context_container"
+require_relative "transformation/data_source_navigator"
 require_relative "transformation/simple_transformation"
 require_relative "transformation/const_transformation"
 require_relative "transformation/start_transformation"
