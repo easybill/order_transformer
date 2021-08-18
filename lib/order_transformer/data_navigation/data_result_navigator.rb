@@ -1,5 +1,5 @@
 module OrderTransformer
-  module Transformation
+  module DataNavigation
     class DataResultNavigator
       attr_accessor :result, :navigation_stack
       def initialize

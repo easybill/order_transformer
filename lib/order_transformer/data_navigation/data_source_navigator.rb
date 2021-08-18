@@ -1,48 +1,5 @@
 module OrderTransformer
-  module Transformation
-    class SimpleElement
-      def get(data:)
-        data
-      end
-
-      def to_s
-        "Grep all "
-      end
-    end
-
-    class HashElement
-      attr_accessor :key_name
-
-      def initialize(key_name:)
-        super()
-        self.key_name = key_name
-      end
-
-      def get(data:)
-        data.fetch(key_name)
-      end
-
-      def to_s
-        "Grep Key #{key_name}"
-      end
-    end
-
-    class ArrayElement
-      attr_accessor :index
-
-      def initialize(index:)
-        super()
-        self.index = index
-      end
-
-      def get(data:)
-        data[index]
-      end
-
-      def to_s
-        "Grep item #{index}"
-      end
-    end
+  module DataNavigation
 
     class DataSourceNavigator
       attr_accessor :source, :navigation_stack
