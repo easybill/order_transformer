@@ -1,6 +1,5 @@
 module OrderTransformer
   module DataNavigation
-
     class DataSourceNavigator
       attr_accessor :source, :navigation_stack
 
@@ -14,10 +13,6 @@ module OrderTransformer
         stacked_do slicer do
           block&.call
         end
-      end
-
-      def current_subelement
-        @current_subelement ||= navigation_stack.reduce(source) { |result, slicer| slicer.get(data: result) }
       end
 
       def map(&block)
@@ -56,7 +51,15 @@ module OrderTransformer
         current_subelement.fetch(...)
       end
 
+      def get
+        current_subelement
+      end
+
       private
+
+      def current_subelement
+        @current_subelement ||= navigation_stack.reduce(source) { |result, slicer| slicer.get(data: result) }
+      end
 
       def stacked_do(slicer, &block)
         @current_subelement = nil
