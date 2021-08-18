@@ -26,6 +26,23 @@ module OrderTransformer
         end
       end
 
+      def value=(val)
+        setvalue_on_subelement(val)
+      end
+
+      def remove(key_name)
+        elem = previous_subelement
+        key = current_id
+
+        elem[key].delete key_name
+      end
+
+      def to_h
+        result
+      end
+
+      private
+
       def current_subelement
         @current_subelement ||= navigation_stack.reduce(result) { |r, slicer| slicer.get(data: r) }
       end
@@ -43,23 +60,6 @@ module OrderTransformer
         key = current_id
         elem[key] = value
       end
-
-      def value=(val)
-        setvalue_on_subelement(val)
-      end
-
-      def remove(key_name)
-        elem = previous_subelement
-        key = current_id
-
-        elem[key].delete key_name
-      end
-
-      def to_h
-        result
-      end
-
-      private
 
       def stacked_do(slicer, &block)
         @current_subelement = nil
