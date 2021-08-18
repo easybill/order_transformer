@@ -9,14 +9,16 @@ module OrderTransformer
         @optional = optional
       end
 
-      def execute(source_data:, context:)
+      def execute(source_data:, context:, result_data:)
         raise "Missing key #{key_name}" unless optional || source_data.key?(key_name)
 
         return [] unless source_data.key?(key_name)
 
         source_data.within(key_name) do
-          source_data.map do |next_source_data_item|
-            transformations.reduce({}) { |result, transformation| result.merge(transformation.execute(source_data: next_source_data_item, context: context)) }
+          source_data.each_with_index do |next_source_data_item, index|
+            result_data.next_item(index) do
+              transformations.each { |transformation| transformation.execute(source_data: next_source_data_item, context: context, result_data: result_data) }
+            end
           end
         end
       end

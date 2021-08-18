@@ -9,7 +9,16 @@ module OrderTransformer
         result = @transformation_definitions.map do |definition|
           definition = definition.clone
           type = definition.delete :type
-          type == :const ? Transformation::ConstTransformation.new(**definition) : Transformation::SimpleTransformation.new(**definition)
+          target_class = case type
+                         when :const
+                           Transformation::ConstTransformation
+                         when :remove
+                           Transformation::RemoveTransformation
+                         else
+                           Transformation::SimpleTransformation
+          end
+
+          target_class.new(**definition)
         end
 
         within_traversal_proxies.each do |definiton|
@@ -55,6 +64,13 @@ module OrderTransformer
           to: to,
           transformer: transformer,
           optional: optional
+        })
+      end
+
+      def remove_entry(name)
+        @transformation_definitions.push({
+          type: :remove,
+          key_name: name
         })
       end
 

@@ -10,7 +10,7 @@ module OrderTransformer
         @transformer = transformer
       end
 
-      def execute(source_data:, context:)
+      def execute(source_data:, context:, result_data:)
         missing_keys = key_names.filter { |key_name| !source_data.key? key_name }
 
         raise "Missing keys #{missing_keys}" unless optional || missing_keys.size.zero?
@@ -21,7 +21,9 @@ module OrderTransformer
 
         result = CleanContextContainer.new(context: context).instance_exec(*args, &transformer)
 
-        {to => result}
+        result_data.within to do
+          result_data.value = result
+        end
       end
     end
   end

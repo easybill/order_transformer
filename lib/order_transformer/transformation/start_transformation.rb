@@ -12,19 +12,27 @@ module OrderTransformer
       def execute(**args)
         args[:source_data] = DataSourceNavigator.new(source: args[:source_data])
 
-        {key_name => if as == :array
-                       array_result(**args)
-                     else
-                       hash_result(**args)
-                     end}
+        args[:result_data].within key_name do
+          if as == :array
+            array_result(**args)
+          else
+            hash_result(**args)
+          end
+        end
+
+        args[:result_data].to_h
       end
 
-      def array_result(source_data:, context:)
-        transformations.map { |transformation| transformation.execute(source_data: source_data, context: context) }.flatten
+      def array_result(source_data:, context:, result_data:)
+        transformations.each do |transformation|
+          transformation.execute(source_data: source_data, context: context, result_data: result_data)
+        end
       end
 
-      def hash_result(source_data:, context:)
-        transformations.reduce({}) { |result, transformation| result.merge(transformation.execute(source_data: source_data, context: context)) }
+      def hash_result(source_data:, context:, result_data:)
+        transformations.each do |transformation|
+          transformation.execute(source_data: source_data, context: context, result_data: result_data)
+        end
       end
     end
   end

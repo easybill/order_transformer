@@ -320,6 +320,148 @@ RSpec.describe OrderTransformer do
             "RecurringCyclePeriod" => "Days",
             "Id" => 254
           }
+        },
+        {
+          "OrderItemGuid" => "f0640ceb-2716-4f0a-bfe6-3697966386bf",
+          "OrderId" => 4,
+          "ProductId" => 254,
+          "Quantity" => 1,
+          "UnitPriceInclTax" => "45",
+          "UnitPriceExclTax" => "45",
+          "PriceInclTax" => "45",
+          "PriceExclTax" => "45",
+          "TaxRate" => "0",
+          "DiscountAmountInclTax" => 0.0,
+          "DiscountAmountExclTax" => 0.0,
+          "AttributeDescription" => "Farbe: Blau<br />Gr&#246;&#223;e: M",
+          "AttributesXml" =>
+            "<Attributes><ProductVariantAttribute ID=\"1227\"><ProductVariantAttributeValue><Value>4783</Value></ProductVariantAttributeValue></ProductVariantAttribute><ProductVariantAttribute ID=\"1228\"><ProductVariantAttributeValue><Value>4785</Value></ProductVariantAttributeValue></ProductVariantAttribute></Attributes>",
+          "DownloadCount" => 0,
+          "IsDownloadActivated" => false,
+          "LicenseDownloadId" => 0,
+          "ItemWeight" => 0.5,
+          "BundleData" => nil,
+          "ProductCost" => 20.0,
+          "DeliveryTimeId" => nil,
+          "DisplayDeliveryTime" => false,
+          "Id" => 5,
+          "Product" => {
+            "ProductTypeId" => 5,
+            "ParentGroupedProductId" => 0,
+            "Visibility" => "Full",
+            "Condition" => "New",
+            "Name" => "Ladies’ Sports Jacket",
+            "ShortDescription" => "Sportliche Jacke",
+            "FullDescription" =>
+              "tailliertem Schnitt",
+            "AdminComment" => "-stm",
+            "ProductTemplateId" => 3,
+            "ShowOnHomePage" => true,
+            "HomePageDisplayOrder" => 0,
+            "MetaKeywords" => nil,
+            "MetaDescription" => "Jacken",
+            "MetaTitle" => nil,
+            "AllowCustomerReviews" => true,
+            "ApprovedRatingSum" => 0,
+            "NotApprovedRatingSum" => 0,
+            "ApprovedTotalReviews" => 0,
+            "NotApprovedTotalReviews" => 0,
+            "SubjectToAcl" => false,
+            "LimitedToStores" => false,
+            "Sku" => "112348",
+            "ManufacturerPartNumber" => "JN1107",
+            "Gtin" => nil,
+            "IsGiftCard" => false,
+            "GiftCardTypeId" => 0,
+            "RequireOtherProducts" => false,
+            "RequiredProductIds" => nil,
+            "AutomaticallyAddRequiredProducts" => false,
+            "IsDownload" => false,
+            "UnlimitedDownloads" => true,
+            "MaxNumberOfDownloads" => 10,
+            "DownloadExpirationDays" => nil,
+            "DownloadActivationTypeId" => 1,
+            "HasSampleDownload" => false,
+            "SampleDownloadId" => 13,
+            "HasUserAgreement" => false,
+            "UserAgreementText" => nil,
+            "IsRecurring" => false,
+            "RecurringCycleLength" => 100,
+            "RecurringCyclePeriodId" => 0,
+            "RecurringTotalCycles" => 10,
+            "IsShipEnabled" => true,
+            "IsFreeShipping" => false,
+            "AdditionalShippingCharge" => 0.0,
+            "IsTaxExempt" => false,
+            "IsEsd" => false,
+            "TaxCategoryId" => 1,
+            "ManageInventoryMethodId" => 0,
+            "StockQuantity" => 10000,
+            "DisplayStockAvailability" => false,
+            "DisplayStockQuantity" => false,
+            "MinStockQuantity" => 0,
+            "LowStockActivityId" => 0,
+            "NotifyAdminForQuantityBelow" => 0,
+            "BackorderModeId" => 0,
+            "AllowBackInStockSubscriptions" => false,
+            "OrderMinimumQuantity" => 1,
+            "OrderMaximumQuantity" => 100,
+            "QuantityStep" => 0,
+            "QuantiyControlType" => "Spinner",
+            "HideQuantityControl" => false,
+            "AllowedQuantities" => nil,
+            "DisableBuyButton" => false,
+            "DisableWishlistButton" => false,
+            "AvailableForPreOrder" => false,
+            "CallForPrice" => false,
+            "Price" => 55.0,
+            "OldPrice" => 60.0,
+            "ProductCost" => 20.0,
+            "SpecialPrice" => 52.0,
+            "SpecialPriceStartDateTimeUtc" => "2017-02-27T09:29:14Z",
+            "SpecialPriceEndDateTimeUtc" => "2017-09-23T23:59:59Z",
+            "CustomerEntersPrice" => false,
+            "MinimumCustomerEnteredPrice" => 0.0,
+            "MaximumCustomerEnteredPrice" => 1000.0,
+            "HasTierPrices" => false,
+            "LowestAttributeCombinationPrice" => nil,
+            "AttributeChoiceBehaviour" => "GrayOutUnavailable",
+            "HasDiscountsApplied" => false,
+            "Weight" => 0.5,
+            "Length" => 0.0,
+            "Width" => 0.0,
+            "Height" => 0.0,
+            "AvailableStartDateTimeUtc" => nil,
+            "AvailableEndDateTimeUtc" => nil,
+            "DisplayOrder" => 0,
+            "Published" => true,
+            "IsSystemProduct" => false,
+            "SystemName" => nil,
+            "CreatedOnUtc" => "2017-03-20T10:14:38.35Z",
+            "UpdatedOnUtc" => "2017-03-28T10:38:16.747Z",
+            "DeliveryTimeId" => nil,
+            "QuantityUnitId" => nil,
+            "CustomsTariffNumber" => nil,
+            "CountryOfOriginId" => 1,
+            "BasePriceEnabled" => false,
+            "BasePriceMeasureUnit" => "kg",
+            "BasePriceAmount" => nil,
+            "BasePriceBaseAmount" => nil,
+            "BundleTitleText" => nil,
+            "BundlePerItemShipping" => false,
+            "BundlePerItemPricing" => false,
+            "BundlePerItemShoppingCart" => false,
+            "MainPictureId" => 2898,
+            "HasPreviewPicture" => false,
+            "ProductType" => "SimpleProduct",
+            "BackorderMode" => "NoBackorders",
+            "DownloadActivationType" => "WhenOrderIsPaid",
+            "GiftCardType" => "Virtual",
+            "LowStockActivity" => "Nothing",
+            "ManageInventoryMethod" => "DontManageStock",
+            "RecurringCyclePeriod" => "Days",
+            "Id" => 254
+          }
         }
       ]
     }
@@ -415,13 +557,42 @@ RSpec.describe OrderTransformer do
         end
       end
     end
+
+    OrderTransformer::DSL.define :smartstore, :v2 do
+      parent name: :smartstore, version: :v1
+      definition do
+        customer as: :hash do
+          within "BillingAddress" do
+            within "Country" do
+              transform "Name", to: "country", transformer: ->(desc) { "#{desc} --" }
+            end
+          end
+
+          within "ShippingAddress" do
+            within "Country" do
+              transform "Name", to: "shipping_country", transformer: ->(desc) { "#{desc} --" }
+            end
+          end
+        end
+
+        order_items as: :array do
+          with_each "OrderItems" do
+            within "Product" do
+              transform "ShortDescription", to: "title", transformer: ->(desc) { "#{desc} --" }
+              remove_entry "title_2"
+            end
+          end
+        end
+      end
+    end
   end
 
   after :each do
     OrderTransformer::DSL.remove(name: :smartstore, version: :v1)
+    OrderTransformer::DSL.remove(name: :smartstore, version: :v2)
   end
 
-  it "does something useful" do
+  it "converts a given data structure" do
     expected_result = {
       "order" => {
         "order_number" => "Order-123",
@@ -480,12 +651,117 @@ RSpec.describe OrderTransformer do
           "title" => "Sportliche Jacke für Freizeitaktivitäten",
           "title_2" => "Oberstoff: 100% Polyamid\nFutterstoff: 65% Polyester, 35% Baumwolle\nFutterstoff 2: 100% Polyester\n\nLeichtes wind- und wasserabweisendes Gewebe, Futter aus weichem Single-Jersey\nStrickbündchen an Arm und Bund, 2 seitliche Taschen mit Reißverschluss, Kapuze\nin leicht tailliertem Schnitt",
           "sku" => "112348"
+        },
+        {
+          "item_type" => "item",
+          "quantity" => 0.1e1,
+          "vat_percent" => 0.0,
+          "unit_price_gross" => 0.45e2,
+          "unit_price_net" => 0.45e2,
+          "total_price_gross" => 0.45e2,
+          "total_price_net" => 0.45e2,
+          "discount_gross" => 0.0,
+          "discount_net" => 0.0,
+          "unit_price_vat" => 0.0,
+          "total_price_vat" => 0.0,
+          "discount_vat" => 0.0,
+          "product" => "I got it from the api",
+          "title" => "Sportliche Jacke",
+          "title_2" => "tailliertem Schnitt",
+          "sku" => "112348"
         }
       ]
     }
 
     context = double("Context", fetch_from_api: "I got it from the api")
     transformations = OrderTransformer::DSL.get(name: :smartstore, version: :v1)
+
+    result = transformations.execute(source_data: example_data, context: context)
+
+    expect(result).to eq(expected_result)
+  end
+
+  it "works with inheritance" do
+    expected_result = {
+      "order" => {
+        "order_number" => "Order-123",
+        "currency_code" => "EUR",
+        "purchase_date" => "2017-03-20T11:07:08.947Z",
+        "vat_number" => "",
+        "payment_type" => "Payments.Prepayment",
+        "payment_date" => nil,
+        "currency" => "EUR",
+        "shipping_gross" => 0.0,
+        "shipping_net" => 0.0,
+        "shipping_tax_rate" => 0.0,
+        "shipping_method" => "Abholung"
+      },
+      "customer" => {
+        "email" => "info@smartstore.com",
+
+        "name" => "Max Mustermann GmbH",
+        "firstname" => "",
+        "lastname" => "",
+        "address_1" => "Musterweg 1",
+        "address_2" => "oben links",
+
+        "city" => "Musterstadt",
+        "zipcode" => "12345",
+        "country" => "Deutschland --",
+
+        "phone_number" => "12345678",
+        "fax_number" => "",
+
+        "shipping_name" => "",
+        "shipping_firstname" => "Max",
+        "shipping_lastname" => "Mustermann",
+        "shipping_address_1" => "Musterweg 1",
+        "shipping_address_2" => "unten links",
+
+        "shipping_city" => "Musterstadt",
+        "shipping_zipcode" => "12345",
+        "shipping_country" => "Deutschland --"
+      },
+      "order_items" => [
+        {
+          "item_type" => "item",
+          "quantity" => "1".to_d,
+          "vat_percent" => "20".to_d,
+          "unit_price_gross" => 0.52e2,
+          "unit_price_net" => 0.433333e2,
+          "total_price_gross" => 0.52e2,
+          "total_price_net" => 0.433333e2,
+          "discount_gross" => 0.0,
+          "discount_net" => 0.0,
+          "unit_price_vat" => "8.6667".to_d,
+          "total_price_vat" => "8.6667".to_d,
+          "discount_vat" => 0.0,
+          "product" => "I got it from the api",
+          "title" => "Sportliche Jacke für Freizeitaktivitäten --",
+          "sku" => "112348"
+        },
+        {
+          "item_type" => "item",
+          "quantity" => 0.1e1,
+          "vat_percent" => 0.0,
+          "unit_price_gross" => 0.45e2,
+          "unit_price_net" => 0.45e2,
+          "total_price_gross" => 0.45e2,
+          "total_price_net" => 0.45e2,
+          "discount_gross" => 0.0,
+          "discount_net" => 0.0,
+          "unit_price_vat" => 0.0,
+          "total_price_vat" => 0.0,
+          "discount_vat" => 0.0,
+          "product" => "I got it from the api",
+          "title" => "Sportliche Jacke --",
+          "sku" => "112348"
+        }
+      ]
+    }
+
+    context = double("Context", fetch_from_api: "I got it from the api")
+    transformations = OrderTransformer::DSL.get(name: :smartstore, version: :v2)
 
     result = transformations.execute(source_data: example_data, context: context)
 

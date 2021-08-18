@@ -1,21 +1,24 @@
 module OrderTransformer
   module DSL
     class DefinitionProxy
-      attr_reader :order_proxy, :__name, :__version
+      attr_reader :__order_proxy, :__name, :__version, :__parent
 
       def initialize(name:, version:)
         @__name = name
         @__version = version
+        @__order_proxy = OrderProxy.new
       end
 
       def __create_transformation
-        order_proxy.__create_transformation
+        __order_proxy.__create_transformation parent: __parent
       end
 
       def definition(&block)
-        @order_proxy = OrderProxy.new
+        __order_proxy.instance_eval(&block) if block
+      end
 
-        order_proxy.instance_eval(&block) if block
+      def parent(name:, version:)
+        @__parent = {name: name, version: version}
       end
 
       def inspect

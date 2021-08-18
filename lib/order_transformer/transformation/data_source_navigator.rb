@@ -78,6 +78,19 @@ module OrderTransformer
         result
       end
 
+      def each_with_index(&block)
+        if block
+          cnt_items = current_subelement.size
+
+          (0...cnt_items).each do |index|
+            slicer = ArrayElement.new index: index
+            stacked_do slicer do
+              block.call self, index
+            end
+          end
+        end
+      end
+
       def key?(key_name)
         current_subelement.key? key_name
       end

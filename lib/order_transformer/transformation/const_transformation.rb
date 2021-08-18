@@ -8,8 +8,10 @@ module OrderTransformer
         @value = value
       end
 
-      def execute(**_args)
-        {to => value}
+      def execute(result_data:, **_args)
+        result_data.within to do
+          result_data.value = value
+        end
       end
     end
   end

@@ -3,14 +3,19 @@ module OrderTransformer
     class OrderProxy < BasicObject
       attr_reader :traversal_proxies
 
-      def __create_transformation
+      def __create_transformation(parent:)
+        parent_transformations = []
+        if parent
+          parent_transformations = ::OrderTransformer::DSL.get(name: parent[:name], version: parent[:version])
+        end
+
         res = traversal_proxies.each_with_object([]) do |(name, config), result|
           result.push Transformation::StartTransformation.new key_name: name,
             transformations: config[:proxy].__create_transformation,
             as: config[:as]
         end
 
-        Transformation::StartTransformations.new start_transformations: res
+        Transformation::StartTransformations.new start_transformations: [*parent_transformations, *res]
       end
 
       def initialize
