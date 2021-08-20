@@ -17,7 +17,7 @@ ENV environment $environment
 RUN echo "Building for $environment..."
 
 RUN apt-get update \
-      && apt-get -y install tzdata git build-essential\
+      && apt-get -y install --no-install-recommends tzdata git build-essential\
       && rm -rf /var/lib/apt/lists/*
 
 
@@ -60,7 +60,7 @@ ENV TZ=Europe/Berlin
 
 # poppler-utils = pdfunite
 RUN apt-get update \
-    && apt-get -y install tzdata git\
+    && apt-get -y install --no-install-recommends tzdata git\
     && rm -rf /var/lib/apt/lists/*git
 
 # so we just copy it to that path in the container
