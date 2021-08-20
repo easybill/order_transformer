@@ -19,7 +19,22 @@ module OrderTransformer
 
         args = key_names.map { |key_name| source_data.fetch(key_name, nil) }
 
-        result = CleanContextContainer.new(context: context, source_data: source_data, result_data: result_data).instance_exec(*args, &transformer)
+        result = begin
+          CleanContextContainer.new(context: context, source_data: source_data, result_data: result_data).instance_exec(*args, &transformer)
+        rescue => e
+          new_backtrace = e.backtrace
+          lint_to_be_added = if transformer.respond_to? :backtrace
+            transformer.backtrace
+          elsif transformer.respond_to? :source_location
+            transformer.source_location.join(":")
+          end
+
+          new_backtrace.push lint_to_be_added if lint_to_be_added
+
+          e.set_backtrace new_backtrace
+
+          raise e
+        end
 
         if to.respond_to? :each_with_index
           to.each_with_index do |current_to, index|
