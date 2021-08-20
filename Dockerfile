@@ -35,10 +35,8 @@ COPY lib/order_transformer/version.rb /usr/src/app/lib/order_transformer
 # Install only new gems, when the Gemfiles did change
 RUN gem install bundler
 
-# Run bundle and yarn with "close to deployment" flags
-# frozen 1: Disallow changes to the Gemfile (ensures Gemfile.lock has to be updated)
-RUN bundle config --global frozen 1 \
-    && bundle install -j4 --retry 3
+# it's a gem so don't use frozen
+RUN bundle install -j4 --retry 3
 
 COPY . .
 
