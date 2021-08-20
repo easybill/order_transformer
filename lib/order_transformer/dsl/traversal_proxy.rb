@@ -57,7 +57,13 @@ module OrderTransformer
         each_traversal_proxies.push({key_name: name.to_s, proxy: traversal_proxy, optional: optional})
       end
 
-      def transform(*key_names, to:, optional: true, transformer: ->(value) { value })
+      def transform(*key_names, to:, optional: true, transformer: nil)
+        transformer ||= if key_names.size > 1
+          ->(*values) { values }
+        else
+          ->(value) { value }
+        end
+
         @transformation_definitions.push({
           type: :simple,
           key_names: key_names,

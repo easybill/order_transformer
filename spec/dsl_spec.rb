@@ -3,6 +3,7 @@ require "json"
 
 RSpec.describe OrderTransformer do
   let(:example_data) {
+    # tag::input[]
     {
       "OrderNumber" => "Order-123",
       "OrderGuid" => "ecf27dfa-3307-422b-a737-c7e3de46d9e9",
@@ -465,9 +466,11 @@ RSpec.describe OrderTransformer do
         }
       ]
     }
+    # end::input[]
   }
 
   before :each do
+    # tag::definition[]
     OrderTransformer::DSL.define :smartstore, :v1 do
       definition do
         order as: :hash do
@@ -511,6 +514,7 @@ RSpec.describe OrderTransformer do
             transform "LastName", "Company", to: "shipping_lastname", transformer: ->(lastname, company) { (company || "").strip.size.zero? ? lastname : "" }
             transform "Address1", to: "shipping_address_1"
             transform "Address2", to: "shipping_address_2"
+            transform "Address1", "Address2", to: ["shipping_address_2_a", "shipping_address_2_b"]
             transform "City", to: "shipping_city"
             transform "ZipPostalCode", to: "shipping_zipcode"
 
@@ -585,6 +589,8 @@ RSpec.describe OrderTransformer do
         end
       end
     end
+
+    # end::definition[]
   end
 
   after :each do
@@ -593,6 +599,7 @@ RSpec.describe OrderTransformer do
   end
 
   it "converts a given data structure" do
+    # tag::output[]
     expected_result = {
       "order" => {
         "order_number" => "Order-123",
@@ -628,6 +635,8 @@ RSpec.describe OrderTransformer do
         "shipping_lastname" => "Mustermann",
         "shipping_address_1" => "Musterweg 1",
         "shipping_address_2" => "unten links",
+        "shipping_address_2_a" => "Musterweg 1",
+        "shipping_address_2_b" => "unten links",
 
         "shipping_city" => "Musterstadt",
         "shipping_zipcode" => "12345",
@@ -672,11 +681,14 @@ RSpec.describe OrderTransformer do
         }
       ]
     }
+    # end::output[]
 
+    # tag::call
     context = double("Context", fetch_from_api: "I got it from the api")
     transformations = OrderTransformer::DSL.get(name: :smartstore, version: :v1)
 
     result = transformations.execute(source_data: example_data, context: context)
+    # end::call
 
     expect(result).to eq(expected_result)
   end
@@ -717,6 +729,8 @@ RSpec.describe OrderTransformer do
         "shipping_lastname" => "Mustermann",
         "shipping_address_1" => "Musterweg 1",
         "shipping_address_2" => "unten links",
+        "shipping_address_2_a" => "Musterweg 1",
+        "shipping_address_2_b" => "unten links",
 
         "shipping_city" => "Musterstadt",
         "shipping_zipcode" => "12345",

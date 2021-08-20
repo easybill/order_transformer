@@ -19,10 +19,18 @@ module OrderTransformer
 
         args = key_names.map { |key_name| source_data.fetch(key_name, nil) }
 
-        result = CleanContextContainer.new(context: context).instance_exec(*args, &transformer)
+        result = CleanContextContainer.new(context: context, source_data: source_data, result_data: result_data).instance_exec(*args, &transformer)
 
-        result_data.within to do
-          result_data.value = result
+        if to.respond_to? :each_with_index
+          to.each_with_index do |current_to, index|
+            result_data.within current_to do
+              result_data.value = result[index]
+            end
+          end
+        else
+          result_data.within to do
+            result_data.value = result
+          end
         end
       end
     end
