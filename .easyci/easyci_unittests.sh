@@ -17,7 +17,7 @@ rm -rf "log/*" "tmp/*" 2>/dev/null
 docker-compose version
 
 cat <<End-of-message > .env-docker
-
+IM_BUILD_ENV=test
 End-of-message
 
 

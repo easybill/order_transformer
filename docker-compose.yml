@@ -1,0 +1,13 @@
+version: "3.3"
+
+services:
+  ruby:
+    build:
+      context: .
+      args:
+        # We can pass in IM_BUILD_ENV to set the environment we want to build for.
+        # Corresponds to "environment" in Dockerfile.
+        environment: ${IM_BUILD_ENV}
+    image: order-transformer-ruby
+    env_file:
+      - .env.docker
