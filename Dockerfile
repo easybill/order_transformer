@@ -1,5 +1,6 @@
 # Multi-stage build to reduce image size for deployment
 # pre-build step, which is responsible for building the codebase and compiling assets
+# alpine does not support jmelloc, at the moment so use debian base image
 FROM  quay.io/evl.ms/fullstaq-ruby:2.7.4-jemalloc-buster-slim AS pre-build
 
 # The following ARGs let us customize the build process.

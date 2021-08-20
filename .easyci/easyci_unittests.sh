@@ -1,4 +1,11 @@
 #!/usr/bin/env bash
+
+# This script is called via http://ci2.easybill.io:8000/github_webhook?task_type=unittests
+# where task_type = easyci_<task_type>.sh
+# important ... github webhook needs to send the request via 'application/json'
+#
+#
+
 set -x
 set -o pipefail
 
