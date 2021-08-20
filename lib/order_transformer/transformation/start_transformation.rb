@@ -10,6 +10,11 @@ module OrderTransformer
       end
 
       def execute(**args)
+        if @result
+          warn "Method was already called, use a new object for a second run"
+          @result
+        end
+
         args[:source_data] = ::OrderTransformer::DataNavigation::DataSourceNavigator.new(source: args[:source_data])
 
         args[:result_data].within key_name do
@@ -20,7 +25,7 @@ module OrderTransformer
           end
         end
 
-        args[:result_data].to_h
+        @result = args[:result_data].to_h
       end
 
       def array_result(source_data:, context:, result_data:)
