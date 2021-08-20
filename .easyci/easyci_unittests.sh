@@ -10,6 +10,8 @@ log "Starting test job"
 log ""
 log "Shutting down old running containers ..."
 
+touch .env-docker
+
 docker-compose down --remove-orphans  -v 2>/dev/null
 rm -rf "log/*" "tmp/*" 2>/dev/null
 
