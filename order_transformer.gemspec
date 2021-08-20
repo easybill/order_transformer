@@ -33,4 +33,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "pry-byebug"
   spec.add_development_dependency "super_diff"
   spec.add_development_dependency "gem-release"
+  spec.add_development_dependency "bundler-audit"
 end
