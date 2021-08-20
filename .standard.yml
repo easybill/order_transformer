@@ -1,0 +1,3 @@
+ignore:
+  - 'order_transformer.gemspec'
+  - 'vendor/**/*'
