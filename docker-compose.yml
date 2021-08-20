@@ -9,5 +9,3 @@ services:
         # Corresponds to "environment" in Dockerfile.
         environment: ${IM_BUILD_ENV}
     image: order-transformer-ruby
-    env_file:
-      - .env.docker

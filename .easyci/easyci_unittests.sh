@@ -11,21 +11,19 @@ log ""
 log "Shutting down old running containers ..."
 
 touch .env-docker
+
 pwd
+ls -ltra
 
 docker-compose down --remove-orphans  -v 2>/dev/null
-pwd
-ls -ltra
+
 rm -rf "log/*" "tmp/*" 2>/dev/null
-ls -ltra
 
 docker-compose version
 
 cat <<End-of-message > .env-docker
 IM_BUILD_ENV=test
 End-of-message
-
-ls -ltra
 
 log ""
 log "Start containers ..."
