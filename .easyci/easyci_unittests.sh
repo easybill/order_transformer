@@ -44,8 +44,9 @@ DC_EXEC_RUBY_CONT="docker-compose --env-file .env-docker run --rm ruby "
 log ""
 log "Run tests and pretyfier ..."
 
-timeout 1600 $DC_EXEC_RUBY_CONT bash -c "bundle exec rake spec 2>&1|tee -a stdout.log && bundle exec rake standard && bundle audit --update "
+timeout 1600 $DC_EXEC_RUBY_CONT bash -c "bundle exec rake spec 2>&1|tee -a stdout.log && bundle exec rake standard && gem install bundler-audit && bundle audit --update && bundle exec license_finder"
 RET=$?
+
 
 log ""
 log ""

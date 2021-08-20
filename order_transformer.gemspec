@@ -3,11 +3,12 @@ require_relative 'lib/order_transformer/version'
 Gem::Specification.new do |spec|
   spec.name          = "order_transformer"
   spec.version       = OrderTransformer::VERSION
+  spec.licenses       = ["Nonstandard"]
   spec.authors       = ["Dieter Späth"]
   spec.email         = ["dieter.spaeth@easybill.de"]
 
-  spec.summary       = %q{}
-  spec.description   = %q{}
+  spec.summary       = %q{Transform orders}
+  spec.description   = %q{Transform hash input of order to internal orders}
   spec.homepage      = "https://www.easybill.de"
   spec.required_ruby_version = Gem::Requirement.new(">= 2.3.0")
 
@@ -30,8 +31,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'guard-rspec', '~> 4.7'
   spec.add_development_dependency "rake", "~> 12.0"
   spec.add_development_dependency "standard", "1.1.7"
-  spec.add_development_dependency "pry-byebug"
-  spec.add_development_dependency "super_diff"
-  spec.add_development_dependency "gem-release"
-  spec.add_development_dependency "bundler-audit"
+  spec.add_development_dependency "pry-byebug", "~> 3.9"
+  spec.add_development_dependency "super_diff", "~> 0.8"
+  spec.add_development_dependency "gem-release", "~> 2.2"
+  spec.add_development_dependency "license_finder", "~> 6.0"
 end
