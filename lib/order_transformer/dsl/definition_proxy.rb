@@ -25,6 +25,7 @@ module OrderTransformer
         super
       end
 
+      # :nocov:
       def pretty_print(pp)
         pp.group(1, "#<DefinitionProxy #{__name} / #{__version}", ">") do
           pp.breakable
@@ -32,6 +33,7 @@ module OrderTransformer
           @order_proxy.pretty_print(pp)
         end
       end
+      # :nocov:
     end
   end
 end

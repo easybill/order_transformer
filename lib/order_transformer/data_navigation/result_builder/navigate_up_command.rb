@@ -16,6 +16,7 @@ module OrderTransformer
           parent.parent.add cmd
         end
 
+        # :nocov:
         def to_s
           "#<NavigateUpCommand []>"
         end
@@ -24,6 +25,7 @@ module OrderTransformer
           pp.group(1, "#<NavigateUpCommand ", ">") do
           end
         end
+        # :nocov:
       end
     end
   end

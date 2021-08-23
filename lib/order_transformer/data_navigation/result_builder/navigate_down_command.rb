@@ -29,6 +29,7 @@ module OrderTransformer
           apply_to
         end
 
+        # :nocov:
         def to_s
           "#<NavigateDownCommand [#{key}] >"
         end
@@ -44,6 +45,7 @@ module OrderTransformer
             @commands.pretty_print(pp)
           end
         end
+        # :nocov:
       end
     end
   end

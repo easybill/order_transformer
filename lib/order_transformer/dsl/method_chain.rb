@@ -20,6 +20,7 @@ module OrderTransformer
         methods.reduce(args) { |last_result, method| method.call(*last_result) }
       end
 
+      # :nocov:
       def source_location
         [__file, __lineno]
       end
@@ -27,6 +28,7 @@ module OrderTransformer
       def backtrace
         [__file, __lineno, __caller_name].join(":")
       end
+      # :nocov:
 
       def to_proc
         # local_methods = methods #

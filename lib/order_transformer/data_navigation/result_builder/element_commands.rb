@@ -24,6 +24,7 @@ module OrderTransformer
           cmd
         end
 
+        # :nocov:
         def to_s
           "#<ElementCommands [] >"
         end
@@ -35,6 +36,7 @@ module OrderTransformer
             @commands.pretty_print(pp)
           end
         end
+        # :nocov:
       end
     end
   end

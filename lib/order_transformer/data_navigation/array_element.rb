@@ -12,9 +12,11 @@ module OrderTransformer
         data[index]
       end
 
+      # :nocov:
       def to_s
         "Grep item #{index}"
       end
+      # :nocov:
     end
   end
 end

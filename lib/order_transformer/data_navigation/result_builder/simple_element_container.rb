@@ -14,6 +14,7 @@ module OrderTransformer
           apply_to[key] = key_value
         end
 
+        # :nocov:
         def pretty_print(pp)
           pp.group(1, "#<SimpleElementContainer", ">") do
             pp.breakable
@@ -21,6 +22,7 @@ module OrderTransformer
             @key_value.pretty_print(pp)
           end
         end
+        # :nocov:
       end
     end
   end

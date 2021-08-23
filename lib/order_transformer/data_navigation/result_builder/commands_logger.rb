@@ -1,6 +1,7 @@
 module OrderTransformer
   module DataNavigation
     module ResultBuilder
+      # :nocov:
       class CommandsLogger
         def print(root, level = 0)
           print_msg root.to_s, level
@@ -18,6 +19,7 @@ module OrderTransformer
           puts "#{"*" * level} #{msg}"
         end
       end
+      # :nocov:
     end
   end
 end
