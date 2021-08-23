@@ -1,7 +1,11 @@
 require "bundler/setup"
-require "order_transformer"
 require "super_diff/rspec"
 require "byebug"
+
+require "simplecov"
+SimpleCov.start
+
+require "order_transformer"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

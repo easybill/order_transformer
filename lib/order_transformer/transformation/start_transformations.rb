@@ -7,8 +7,12 @@ module OrderTransformer
         @start_transformations = start_transformations
       end
 
-      def execute(source_data:, context:, result_data: ::OrderTransformer::DataNavigation::DataResultNavigator.new)
-        start_transformations.each { |transformation| transformation.execute(source_data: source_data, context: context, result_data: result_data) }
+      def execute(source_data:, context:, result_data: nil)
+        result_data ||= ::OrderTransformer::DataNavigation::DataResultNavigator.new
+
+        start_transformations.each do |transformation|
+          transformation.execute(source_data: source_data, context: context, result_data: result_data)
+        end
 
         result_data.to_h
       end

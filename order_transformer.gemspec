@@ -28,6 +28,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_development_dependency "rspec", "~> 3.0"
+  spec.add_development_dependency "simplecov", "~> 0.19"
   spec.add_development_dependency 'guard-rspec', '~> 4.7'
   spec.add_development_dependency "rake", "~> 12.0"
   spec.add_development_dependency "standard", "1.1.7"

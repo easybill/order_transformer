@@ -18,15 +18,77 @@ module OrderTransformer
         navigator.within "test" do
           (0...2).each do |index|
             navigator.next_item(index) do
-              navigator.value = "hello world #{index + 1}"
+              navigator.within "test2" do
+                navigator.value = "hello world #{index + 1}"
+              end
             end
           end
         end
 
-        expect(navigator.to_h).to match({"test" => ["hello world 1", "hello world 2"]})
+        expect(navigator.to_h).to match({"test" => [{"test2" => "hello world 1"}, {"test2" => "hello world 2"}]})
       end
 
-      it "can add remove a hash element" do
+      it "can override already existing values" do
+        navigator.within "order" do
+          navigator.within "customer" do
+            navigator.within "name" do
+              navigator.value = "max"
+            end
+          end
+
+          navigator.within "order_items" do
+            (0...2).each do |index|
+              navigator.next_item(index) do
+                navigator.within "test2" do
+                  navigator.value = "hello world #{index + 1}"
+                end
+              end
+            end
+          end
+
+          navigator.within "order_items2" do
+            (0...2).each do |index|
+              navigator.next_item(index) do
+                navigator.within "test2" do
+                  navigator.value = "hello world #{index + 1}"
+                end
+              end
+            end
+          end
+
+          navigator.within "customer" do
+            navigator.within "name" do
+              navigator.value = "max2"
+            end
+          end
+
+          navigator.within "order_items" do
+            (0...2).each do |index|
+              navigator.next_item(index) do
+                navigator.within "test2" do
+                  navigator.value = "hello world 2-#{index + 1}"
+                end
+              end
+            end
+          end
+        end
+
+        expect(navigator.to_h).to match({
+          "order" => {
+            "customer" => {"name" => "max2"},
+            "order_items" => [
+              {"test2" => "hello world 2-1"},
+              {"test2" => "hello world 2-2"}
+            ],
+            "order_items2" => [
+              {"test2" => "hello world 1"},
+              {"test2" => "hello world 2"}
+            ]
+          }
+        })
+      end
+
+      it "can remove a hash element" do
         navigator.within "test" do
           (0...2).each do |index|
             navigator.next_item(index) do

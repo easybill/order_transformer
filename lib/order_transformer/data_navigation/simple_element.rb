@@ -5,9 +5,11 @@ module OrderTransformer
         data
       end
 
+      # :nocov:
       def to_s
         "Grep all "
       end
+      # :nocov:
     end
   end
 end
