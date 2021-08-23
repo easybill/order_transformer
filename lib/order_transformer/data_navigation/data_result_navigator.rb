@@ -1,74 +1,45 @@
 module OrderTransformer
   module DataNavigation
     class DataResultNavigator
-      attr_accessor :result, :navigation_stack
+      attr_accessor :root_command, :add_command_to
+
       def initialize
-        self.result = {}
-        self.navigation_stack = [SimpleElement.new]
+        self.root_command = OrderTransformer::DataNavigation::ResultBuilder::ElementCommands.new
+        self.add_command_to = root_command
       end
 
       def within(key_name, &block)
-        slicer = HashElement.new key_name: key_name
-        setvalue_on_subelement({}) if current_subelement.nil?
-        current_subelement[key_name] = nil unless current_subelement.key? key_name
+        add_command OrderTransformer::DataNavigation::ResultBuilder::NavigateDownCommand.new(key: key_name)
 
-        stacked_do slicer do
-          block&.call
-        end
+        block&.call
+
+        add_command OrderTransformer::DataNavigation::ResultBuilder::NavigateUpCommand.new
       end
 
       def next_item(index, &block)
-        slicer = ArrayElement.new index: index
-        setvalue_on_subelement([]) if current_subelement.nil?
+        add_command OrderTransformer::DataNavigation::ResultBuilder::AddItemCommand.new(index: index)
 
-        stacked_do slicer do
-          block&.call
-        end
+        block&.call
+
+        # add_command OrderTransformer::DataNavigation::ResultBuilder::NavigateUpCommand.new()
       end
 
       def value=(val)
-        setvalue_on_subelement(val)
+        add_command OrderTransformer::DataNavigation::ResultBuilder::AddValueCommand.new(value: val)
       end
 
       def remove(key_name)
-        elem = previous_subelement
-        key = current_id
-
-        elem[key].delete key_name
+        add_command OrderTransformer::DataNavigation::ResultBuilder::RemoveElementCommand.new key: key_name
       end
 
       def to_h
-        result
+        root_command.execute({})
       end
 
       private
 
-      def current_subelement
-        @current_subelement ||= navigation_stack.reduce(result) { |r, slicer| slicer.get(data: r) }
-      end
-
-      def previous_subelement
-        navigation_stack[0...-1].reduce(result) { |r, slicer| slicer.get(data: r) }
-      end
-
-      def current_id
-        navigation_stack[-1].respond_to?(:key_name) ? navigation_stack[-1].key_name : navigation_stack[-1].index
-      end
-
-      def setvalue_on_subelement(value)
-        elem = previous_subelement
-        key = current_id
-        elem[key] = value
-      end
-
-      def stacked_do(slicer, &block)
-        @current_subelement = nil
-        navigation_stack.push slicer
-
-        block&.call
-
-        navigation_stack.pop
-        @current_subelement = nil
+      def add_command command
+        self.add_command_to = add_command_to.add command
       end
     end
   end

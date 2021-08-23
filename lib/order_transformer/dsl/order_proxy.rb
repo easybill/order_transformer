@@ -23,9 +23,11 @@ module OrderTransformer
         @traversal_proxies = {}
       end
 
+      # :nocov:
       def respond_to_missing?
         true
       end
+      # :nocov:
 
       def method_missing(name, *args, **keyword_args, &block)
         traversal_proxy = TraversalProxy.new
@@ -35,6 +37,7 @@ module OrderTransformer
         traversal_proxies[name.to_s] = {proxy: traversal_proxy, as: keyword_args[:as]}
       end
 
+      # :nocov:
       def pretty_print(pp)
         pp.group(1, "#<OrderProxy", ">") do
           pp.breakable
@@ -42,6 +45,7 @@ module OrderTransformer
           @traversal_proxies.pretty_print(pp)
         end
       end
+      # :nocov:
     end
   end
 end

@@ -1,5 +1,6 @@
 module OrderTransformer
   module DataNavigation
+    require_relative "data_navigation/result_builder"
     require_relative "data_navigation/simple_element"
     require_relative "data_navigation/array_element"
     require_relative "data_navigation/hash_element"

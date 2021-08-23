@@ -777,7 +777,9 @@ RSpec.describe OrderTransformer do
     context = double("Context", fetch_from_api: "I got it from the api")
     transformations = OrderTransformer::DSL.get(name: :smartstore, version: :v2)
 
-    result = transformations.execute(source_data: example_data, context: context)
+    res_data = ::OrderTransformer::DataNavigation::DataResultNavigator.new
+
+    result = transformations.execute(source_data: example_data, context: context, result_data: res_data)
 
     expect(result).to eq(expected_result)
   end

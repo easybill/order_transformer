@@ -21,6 +21,7 @@ module OrderTransformer
 
         result = begin
           CleanContextContainer.new(context: context, source_data: source_data, result_data: result_data).instance_exec(*args, &transformer)
+        # :nocov:
         rescue => e
           new_backtrace = e.backtrace
           lint_to_be_added = if transformer.respond_to? :backtrace
@@ -35,6 +36,7 @@ module OrderTransformer
 
           raise e
         end
+        # :nocov:
 
         if to.respond_to? :each_with_index
           to.each_with_index do |current_to, index|
