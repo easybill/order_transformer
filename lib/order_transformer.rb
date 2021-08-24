@@ -5,5 +5,12 @@ require "order_transformer/dsl"
 
 module OrderTransformer
   class Error < StandardError; end
-  # Your code goes here...
+
+  class KeyError < StandardError
+    attr_reader :keys
+    def initialize(*keys)
+      super "Missing required key(s) #{keys.join(", ")}"
+      @keys = keys
+    end
+  end
 end

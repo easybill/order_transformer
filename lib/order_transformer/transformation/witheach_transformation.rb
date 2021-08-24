@@ -10,7 +10,7 @@ module OrderTransformer
       end
 
       def execute(source_data:, context:, result_data:)
-        raise "Missing key #{key_name}" unless optional || source_data.key?(key_name)
+        raise OrderTransformer::KeyError.new(key_name) unless optional || source_data.key?(key_name)
 
         return [] unless source_data.key?(key_name)
 
