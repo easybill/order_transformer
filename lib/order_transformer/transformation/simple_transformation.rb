@@ -13,7 +13,7 @@ module OrderTransformer
       def execute(source_data:, context:, result_data:)
         missing_keys = key_names.filter { |key_name| !source_data.key? key_name }
 
-        raise "Missing keys #{missing_keys}" unless optional || missing_keys.size.zero?
+        raise OrderTransformer::KeyError.new(*missing_keys) unless optional || missing_keys.size.zero?
 
         return {} if key_names.size == missing_keys.size
 

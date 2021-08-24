@@ -9,6 +9,11 @@ module OrderTransformer
         chain.add ->(*args) { args.join(with) }
       end
 
+      def date_time_parse(chain = nil)
+        chain ||= __create_method_chain(caller(1, 1))
+        chain.add ->(date_str) { begin; DateTime.parse(date_str); rescue; nil; end }
+      end
+
       def compact(chain = nil)
         chain ||= __create_method_chain(caller(1, 1))
         chain.add ->(*args) { args.compact }
