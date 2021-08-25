@@ -14,6 +14,7 @@ module OrderTransformer
 
     def self.add(importer:, name:, version:)
       registry[name] ||= {}
+      warn "Redefinition of transformer #{name}##{version}" if registry[name].key? version
       registry[name][version] = importer
     end
 
@@ -22,6 +23,9 @@ module OrderTransformer
     end
 
     def self.get(name:, version:)
+      raise TransformerNotFound.new(name, version) unless registry[name]
+      raise TransformerVersionNotFound.new(name, version) unless registry[name][version]
+
       registry[name][version].__create_transformation
     end
 
