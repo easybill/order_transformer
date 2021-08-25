@@ -1,16 +1,8 @@
-require "order_transformer/version"
-require "order_transformer/data_navigation"
-require "order_transformer/transformation"
-require "order_transformer/dsl"
-
 module OrderTransformer
-  class Error < StandardError; end
+  require_relative "order_transformer/errors"
 
-  class KeyError < StandardError
-    attr_reader :keys
-    def initialize(*keys)
-      super "Missing required key(s) #{keys.join(", ")}"
-      @keys = keys
-    end
-  end
+  require_relative "order_transformer/version"
+  require_relative "order_transformer/data_navigation"
+  require_relative "order_transformer/transformation"
+  require_relative "order_transformer/dsl"
 end
