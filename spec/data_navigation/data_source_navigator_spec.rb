@@ -111,7 +111,7 @@ module OrderTransformer
 
       it "raises a 'KeyError' when a key can't be fetched" do
         navigator.within "level_1_a" do
-          expect { navigator.fetch("level_2_ax") }.to raise_error(KeyError)
+          expect { navigator.fetch("level_2_ax") }.to raise_error(OrderTransformer::KeyError)
         end
       end
 
