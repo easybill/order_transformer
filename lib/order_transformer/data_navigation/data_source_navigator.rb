@@ -47,8 +47,10 @@ module OrderTransformer
         current_subelement.key? key_name
       end
 
-      def fetch(...)
-        current_subelement.fetch(...)
+      def fetch(*args)
+        current_subelement.fetch(*args)
+      rescue ::KeyError
+        raise OrderTransformer::KeyError.new(args.first)
       end
 
       def get
