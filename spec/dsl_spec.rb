@@ -1,6 +1,13 @@
 require "spec_helper"
 require "json"
 
+module OrderTransformerSpecTestTransformers
+  def to_foo_bar(chain = nil)
+    chain ||= __create_method_chain(caller(1, 1))
+    chain.add ->(*args) { "#{args.first}-foo bar" }
+  end
+end
+
 RSpec.describe OrderTransformer do
   let(:example_data) {
     # tag::input[]
@@ -473,6 +480,8 @@ RSpec.describe OrderTransformer do
     # tag::definition[]
     OrderTransformer::DSL.define :smartstore, :v1 do
       definition do
+        include_transformers OrderTransformerSpecTestTransformers
+
         order as: :hash do
           transform "OrderNumber", to: "order_number", optional: false
           transform "CustomerCurrencyCode", to: "currency_code"
@@ -485,11 +494,13 @@ RSpec.describe OrderTransformer do
           transform "OrderShippingExclTax", to: "shipping_net"
           transform "OrderShippingTaxRate", to: "shipping_tax_rate"
           transform "ShippingMethod", to: "shipping_method"
+          transform "ShippingMethod", to: "with_foo_bar", transformer: to_foo_bar
         end
 
         customer as: :hash do
           within "Customer" do
             transform "Email", to: "email", optional: false
+            transform "Email", to: "email_with_foo_bar", transformer: to_foo_bar
           end
 
           within "BillingAddress" do
@@ -556,6 +567,7 @@ RSpec.describe OrderTransformer do
               transform "ShortDescription", to: "title"
               transform "FullDescription", to: "title_2"
               transform "Sku", to: "sku"
+              transform "Sku", to: "sku_with_foo_bar", transformer: to_foo_bar
             end
           end
         end
@@ -612,10 +624,12 @@ RSpec.describe OrderTransformer do
         "shipping_gross" => 0.0,
         "shipping_net" => 0.0,
         "shipping_tax_rate" => 0.0,
-        "shipping_method" => "Abholung"
+        "shipping_method" => "Abholung",
+        "with_foo_bar" => "Abholung-foo bar"
       },
       "customer" => {
         "email" => "info@smartstore.com",
+        "email_with_foo_bar" => "info@smartstore.com-foo bar",
 
         "name" => "Max Mustermann GmbH",
         "firstname" => "",
@@ -659,7 +673,8 @@ RSpec.describe OrderTransformer do
           "product" => "I got it from the api",
           "title" => "Sportliche Jacke für Freizeitaktivitäten",
           "title_2" => "Oberstoff: 100% Polyamid\nFutterstoff: 65% Polyester, 35% Baumwolle\nFutterstoff 2: 100% Polyester\n\nLeichtes wind- und wasserabweisendes Gewebe, Futter aus weichem Single-Jersey\nStrickbündchen an Arm und Bund, 2 seitliche Taschen mit Reißverschluss, Kapuze\nin leicht tailliertem Schnitt",
-          "sku" => "112348"
+          "sku" => "112348",
+          "sku_with_foo_bar" => "112348-foo bar"
         },
         {
           "item_type" => "item",
@@ -677,7 +692,8 @@ RSpec.describe OrderTransformer do
           "product" => "I got it from the api",
           "title" => "Sportliche Jacke",
           "title_2" => "tailliertem Schnitt",
-          "sku" => "112348"
+          "sku" => "112348",
+          "sku_with_foo_bar" => "112348-foo bar"
         }
       ]
     }
@@ -706,10 +722,12 @@ RSpec.describe OrderTransformer do
         "shipping_gross" => 0.0,
         "shipping_net" => 0.0,
         "shipping_tax_rate" => 0.0,
-        "shipping_method" => "Abholung"
+        "shipping_method" => "Abholung",
+        "with_foo_bar" => "Abholung-foo bar"
       },
       "customer" => {
         "email" => "info@smartstore.com",
+        "email_with_foo_bar" => "info@smartstore.com-foo bar",
 
         "name" => "Max Mustermann GmbH",
         "firstname" => "",
@@ -752,7 +770,8 @@ RSpec.describe OrderTransformer do
           "discount_vat" => 0.0,
           "product" => "I got it from the api",
           "title" => "Sportliche Jacke für Freizeitaktivitäten --",
-          "sku" => "112348"
+          "sku" => "112348",
+          "sku_with_foo_bar" => "112348-foo bar"
         },
         {
           "item_type" => "item",
@@ -769,7 +788,8 @@ RSpec.describe OrderTransformer do
           "discount_vat" => 0.0,
           "product" => "I got it from the api",
           "title" => "Sportliche Jacke --",
-          "sku" => "112348"
+          "sku" => "112348",
+          "sku_with_foo_bar" => "112348-foo bar"
         }
       ]
     }
