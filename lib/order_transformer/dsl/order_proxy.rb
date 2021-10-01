@@ -1,7 +1,7 @@
 module OrderTransformer
   module DSL
     class OrderProxy < BasicObject
-      attr_reader :traversal_proxies
+      attr_reader :traversal_proxies, :__modules
 
       def __create_transformation(parent:)
         parent_transformations = []
@@ -21,6 +21,11 @@ module OrderTransformer
       def initialize
         super
         @traversal_proxies = {}
+        @__modules = []
+      end
+
+      def include_transformers(*modules)
+        @__modules.concat modules
       end
 
       # :nocov:
@@ -30,7 +35,7 @@ module OrderTransformer
       # :nocov:
 
       def method_missing(name, *args, **keyword_args, &block)
-        traversal_proxy = TraversalProxy.new
+        traversal_proxy = TraversalProxy.new(*__modules)
 
         traversal_proxy.instance_eval(&block) if block
 

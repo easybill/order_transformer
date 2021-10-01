@@ -3,7 +3,7 @@ module OrderTransformer
     class TraversalProxy
       include DefaultTransformers
 
-      attr_reader :each_traversal_proxies, :within_traversal_proxies, :transformation_definitions
+      attr_reader :each_traversal_proxies, :within_traversal_proxies, :transformation_definitions, :__extensions
 
       def __create_transformation
         result = @transformation_definitions.map do |definition|
@@ -36,22 +36,25 @@ module OrderTransformer
         result
       end
 
-      def initialize
-        super
+      def initialize(*modules)
+        super()
         @each_traversal_proxies = []
         @within_traversal_proxies = []
         @transformation_definitions = []
+        @__extensions = modules
+
+        @__extensions.each { |mod| extend(mod) }
       end
 
       def within(name, optional: true, &block)
-        traversal_proxy = TraversalProxy.new
+        traversal_proxy = TraversalProxy.new(*__extensions)
         traversal_proxy.instance_eval(&block) if block
 
         within_traversal_proxies.push({key_name: name.to_s, proxy: traversal_proxy, optional: optional})
       end
 
       def with_each(name, optional: true, &block)
-        traversal_proxy = TraversalProxy.new
+        traversal_proxy = TraversalProxy.new(*__extensions)
         traversal_proxy.instance_eval(&block) if block
 
         each_traversal_proxies.push({key_name: name.to_s, proxy: traversal_proxy, optional: optional})
