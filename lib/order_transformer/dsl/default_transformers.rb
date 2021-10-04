@@ -6,7 +6,7 @@ module OrderTransformer
 
       def join(chain = nil, with: " ")
         chain ||= __create_method_chain(caller(1, 1))
-        chain.add ->(*args) { args.join(with) }
+        chain.add ->(*args) { args&.join(with) }
       end
 
       def date_time_parse(chain = nil)
@@ -16,17 +16,17 @@ module OrderTransformer
 
       def compact(chain = nil)
         chain ||= __create_method_chain(caller(1, 1))
-        chain.add ->(*args) { args.compact }
+        chain.add ->(*args) { args&.compact }
       end
 
       def strip(chain = nil)
         chain ||= __create_method_chain(caller(1, 1))
-        chain.add ->(*args) { args.map(&:strip) }
+        chain.add ->(*args) { args&.map { |v| v&.strip } }
       end
 
       def to_d(chain = nil)
         chain ||= __create_method_chain(caller(1, 1))
-        chain.add ->(*args) { (args.first || "0").to_d }
+        chain.add ->(*args) { (args&.first || "0").to_d }
       end
 
       def __create_method_chain(caller_string)
