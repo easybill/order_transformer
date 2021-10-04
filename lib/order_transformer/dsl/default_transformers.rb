@@ -21,7 +21,7 @@ module OrderTransformer
 
       def strip(chain = nil)
         chain ||= __create_method_chain(caller(1, 1))
-        chain.add ->(*args) { args&.map(&:strip) }
+        chain.add ->(*args) { args&.map { |v| v&.strip } }
       end
 
       def to_d(chain = nil)
