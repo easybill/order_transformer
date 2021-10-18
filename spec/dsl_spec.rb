@@ -547,6 +547,9 @@ RSpec.describe OrderTransformer do
             transform "DiscountAmountInclTax", to: "discount_gross", transformer: to_d
             transform "DiscountAmountExclTax", to: "discount_net", transformer: to_d
 
+            transform "AttributesXml", to: "plain_text_attributes"
+            transform "AttributesXml", to: "xml_text_attributes", sanitize: false
+
             transform "UnitPriceInclTax", "UnitPriceExclTax", to: "unit_price_vat", optional: false, transformer: ->(gross, net) {
               (gross || "0").to_d - (net || "0").to_d
             }
@@ -674,7 +677,9 @@ RSpec.describe OrderTransformer do
           "title" => "Sportliche Jacke für Freizeitaktivitäten",
           "title_2" => "Oberstoff: 100% Polyamid\nFutterstoff: 65% Polyester, 35% Baumwolle\nFutterstoff 2: 100% Polyester\n\nLeichtes wind- und wasserabweisendes Gewebe, Futter aus weichem Single-Jersey\nStrickbündchen an Arm und Bund, 2 seitliche Taschen mit Reißverschluss, Kapuze\nin leicht tailliertem Schnitt",
           "sku" => "112348",
-          "sku_with_foo_bar" => "112348-foo bar"
+          "sku_with_foo_bar" => "112348-foo bar",
+          "plain_text_attributes" => "47834785",
+          "xml_text_attributes" => "<Attributes><ProductVariantAttribute ID=\"1227\"><ProductVariantAttributeValue><Value>4783</Value></ProductVariantAttributeValue></ProductVariantAttribute><ProductVariantAttribute ID=\"1228\"><ProductVariantAttributeValue><Value>4785</Value></ProductVariantAttributeValue></ProductVariantAttribute></Attributes>"
         },
         {
           "item_type" => "item",
@@ -693,7 +698,9 @@ RSpec.describe OrderTransformer do
           "title" => "Sportliche Jacke",
           "title_2" => "tailliertem Schnitt",
           "sku" => "112348",
-          "sku_with_foo_bar" => "112348-foo bar"
+          "sku_with_foo_bar" => "112348-foo bar",
+          "plain_text_attributes" => "47834785",
+          "xml_text_attributes" => "<Attributes><ProductVariantAttribute ID=\"1227\"><ProductVariantAttributeValue><Value>4783</Value></ProductVariantAttributeValue></ProductVariantAttribute><ProductVariantAttribute ID=\"1228\"><ProductVariantAttributeValue><Value>4785</Value></ProductVariantAttributeValue></ProductVariantAttribute></Attributes>"
         }
       ]
     }
@@ -771,7 +778,9 @@ RSpec.describe OrderTransformer do
           "product" => "I got it from the api",
           "title" => "Sportliche Jacke für Freizeitaktivitäten --",
           "sku" => "112348",
-          "sku_with_foo_bar" => "112348-foo bar"
+          "sku_with_foo_bar" => "112348-foo bar",
+          "plain_text_attributes" => "47834785",
+          "xml_text_attributes" => "<Attributes><ProductVariantAttribute ID=\"1227\"><ProductVariantAttributeValue><Value>4783</Value></ProductVariantAttributeValue></ProductVariantAttribute><ProductVariantAttribute ID=\"1228\"><ProductVariantAttributeValue><Value>4785</Value></ProductVariantAttributeValue></ProductVariantAttribute></Attributes>"
         },
         {
           "item_type" => "item",
@@ -789,7 +798,9 @@ RSpec.describe OrderTransformer do
           "product" => "I got it from the api",
           "title" => "Sportliche Jacke --",
           "sku" => "112348",
-          "sku_with_foo_bar" => "112348-foo bar"
+          "sku_with_foo_bar" => "112348-foo bar",
+          "plain_text_attributes" => "47834785",
+          "xml_text_attributes" => "<Attributes><ProductVariantAttribute ID=\"1227\"><ProductVariantAttributeValue><Value>4783</Value></ProductVariantAttributeValue></ProductVariantAttribute><ProductVariantAttribute ID=\"1228\"><ProductVariantAttributeValue><Value>4785</Value></ProductVariantAttributeValue></ProductVariantAttribute></Attributes>"
         }
       ]
     }
