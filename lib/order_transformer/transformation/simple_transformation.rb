@@ -1,13 +1,16 @@
 module OrderTransformer
   module Transformation
-    class SimpleTransformation
-      attr_reader :key_names, :to, :optional, :transformer
+    require "rails-html-sanitizer"
 
-      def initialize(key_names:, to:, optional:, transformer:)
+    class SimpleTransformation
+      attr_reader :key_names, :to, :optional, :transformer, :sanitize
+
+      def initialize(key_names:, to:, optional:, transformer:, sanitize:)
         @key_names = key_names
         @to = to
         @optional = optional
         @transformer = transformer
+        @sanitize = sanitize
       end
 
       def execute(source_data:, context:, result_data:)
@@ -18,6 +21,8 @@ module OrderTransformer
         return {} if key_names.size == missing_keys.size
 
         args = key_names.map { |key_name| source_data.fetch(key_name, nil) }
+
+        args = sanitize_values(*args) if sanitize
 
         result = begin
           CleanContextContainer.new(context: context, source_data: source_data, result_data: result_data).instance_exec(*args, &transformer)
@@ -49,6 +54,20 @@ module OrderTransformer
             result_data.value = result
           end
         end
+      end
+
+      def sanitize_values(*args)
+        args.map { |arg| sanitize_value arg }
+      end
+
+      def sanitize_value(arg)
+        return arg unless arg.is_a?(String)
+
+        full_sanitizer.sanitize arg
+      end
+
+      def full_sanitizer
+        @full_sanitizer ||= Rails::Html::FullSanitizer.new
       end
     end
   end
