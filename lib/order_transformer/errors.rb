@@ -10,6 +10,14 @@ module OrderTransformer
     end
   end
 
+  class StructureMissMatchError < Error
+    attr_reader :keys
+    def initialize(*keys)
+      super "Key(s) #{keys.join(", ")} value was nil"
+      @keys = keys
+    end
+  end
+
   class TransformerNotFound < Error
     attr_reader :name, :version
 
