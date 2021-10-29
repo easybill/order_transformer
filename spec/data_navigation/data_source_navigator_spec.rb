@@ -167,19 +167,6 @@ module OrderTransformer
         expect(tmp_result).to match(expected_resul)
       end
 
-      it "maps an array" do
-        tmp_result = []
-        navigator.within "level_1_a", false do
-          navigator.within "level_2_a", false do
-            tmp_result = navigator.map do |nav|
-              nav.get
-            end
-          end
-        end
-
-        expect(tmp_result).to match(test_source["level_1_a"]["level_2_a"])
-      end
-
       it "traverses complex structures" do
         expected_result = [
           {

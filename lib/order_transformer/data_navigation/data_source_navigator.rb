@@ -21,21 +21,6 @@ module OrderTransformer
         end
       end
 
-      def map(&block)
-        result = []
-        if block
-          cnt_items = current_subelement.size
-
-          result = (0...cnt_items).map do |index|
-            slicer = ArrayElement.new index: index
-            stacked_do slicer do
-              block.call self
-            end
-          end
-        end
-        result
-      end
-
       def each_with_index(&block)
         if block
           cnt_items = current_subelement.size
