@@ -8,9 +8,15 @@ module OrderTransformer
         self.navigation_stack = [SimpleElement.new]
       end
 
-      def within(key_name, &block)
+      def within(key_name, optional, &block)
+        raise OrderTransformer::KeyError.new(key_name) unless optional || key?(key_name)
+        return unless key?(key_name)
+
         slicer = HashElement.new key_name: key_name
         stacked_do slicer do
+          break if optional && blank?
+          raise OrderTransformer::StructureMissMatchError, key_name unless present?
+
           block&.call
         end
       end
@@ -55,6 +61,14 @@ module OrderTransformer
 
       def get
         current_subelement
+      end
+
+      def present?
+        !blank?
+      end
+
+      def blank?
+        current_subelement.nil?
       end
 
       private
