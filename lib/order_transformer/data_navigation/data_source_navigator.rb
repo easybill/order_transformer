@@ -35,7 +35,7 @@ module OrderTransformer
       end
 
       def key?(key_name)
-        current_subelement.key? key_name
+        current_subelement&.key? key_name
       end
 
       def fetch(*args)
