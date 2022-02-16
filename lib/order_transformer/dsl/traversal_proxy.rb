@@ -60,7 +60,7 @@ module OrderTransformer
         each_traversal_proxies.push({key_name: name.to_s, proxy: traversal_proxy, optional: optional})
       end
 
-      def transform(*key_names, to:, optional: true, transformer: nil, sanitize: true)
+      def transform(*key_names, to:, optional: true, transformer: nil, sanitize: false)
         transformer ||= if key_names.size > 1
           ->(*values) { values }
         else

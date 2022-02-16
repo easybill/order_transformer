@@ -547,7 +547,7 @@ RSpec.describe OrderTransformer do
             transform "DiscountAmountInclTax", to: "discount_gross", transformer: to_d
             transform "DiscountAmountExclTax", to: "discount_net", transformer: to_d
 
-            transform "AttributesXml", to: "plain_text_attributes"
+            transform "AttributesXml", to: "plain_text_attributes", sanitize: true
             transform "AttributesXml", to: "xml_text_attributes", sanitize: false
 
             transform "UnitPriceInclTax", "UnitPriceExclTax", to: "unit_price_vat", optional: false, transformer: ->(gross, net) {
