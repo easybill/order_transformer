@@ -1,6 +1,6 @@
 module OrderTransformer
   module Transformation
-    require "rails-html-sanitizer"
+    require "loofah"
 
     class SimpleTransformation
       attr_reader :key_names, :to, :optional, :transformer, :sanitize
@@ -62,12 +62,9 @@ module OrderTransformer
 
       def sanitize_value(arg)
         return arg unless arg.is_a?(String)
+        return arg if arg.empty?
 
-        full_sanitizer.sanitize arg
-      end
-
-      def full_sanitizer
-        @full_sanitizer ||= Rails::Html::FullSanitizer.new
+        Loofah.fragment(arg).to_text(encode_special_chars: false, encoding: "UTF-8")
       end
     end
   end
