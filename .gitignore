@@ -5,6 +5,7 @@
 /pkg/
 /spec/reports/
 /tmp/
+/.idea/
 
 # it's a gem
 Gemfile.lock
