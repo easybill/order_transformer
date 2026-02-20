@@ -5,7 +5,7 @@ module OrderTransformer
   class KeyError < Error
     attr_reader :keys
     def initialize(*keys)
-      super "Missing required key(s) #{keys.join(", ")}"
+      super("Missing required key(s) #{keys.join(", ")}")
       @keys = keys
     end
   end
@@ -13,7 +13,7 @@ module OrderTransformer
   class StructureMissMatchError < Error
     attr_reader :keys
     def initialize(*keys)
-      super "Key(s) #{keys.join(", ")} value was nil"
+      super("Key(s) #{keys.join(", ")} value was nil")
       @keys = keys
     end
   end
@@ -22,7 +22,7 @@ module OrderTransformer
     attr_reader :name, :version
 
     def initialize(name, version)
-      super "Transformer not found #{name}##{version}"
+      super("Transformer not found #{name}##{version}")
       @name = name
       @version = version
     end

@@ -5,7 +5,7 @@ module OrderTransformer
         attr_accessor :parent
 
         def initialize
-          super()
+          super
         end
 
         def execute(apply_to)

@@ -5,7 +5,7 @@ module OrderTransformer
         attr_accessor :commands
 
         def initialize
-          super()
+          super
           @commands = []
         end
 

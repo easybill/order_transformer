@@ -10,12 +10,12 @@ module OrderTransformer
           definition = definition.clone
           type = definition.delete :type
           target_class = case type
-                         when :const
-                           Transformation::ConstTransformation
-                         when :remove
-                           Transformation::RemoveTransformation
-                         else
-                           Transformation::SimpleTransformation
+          when :const
+            Transformation::ConstTransformation
+          when :remove
+            Transformation::RemoveTransformation
+          else
+            Transformation::SimpleTransformation
           end
 
           target_class.new(**definition)
