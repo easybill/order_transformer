@@ -631,8 +631,8 @@ RSpec.describe OrderTransformer do
         "order_items" => [
           {
             "item_type" => "item",
-            "quantity" => "1".to_d,
-            "vat_percent" => "20".to_d,
+            "quantity" => 1.to_d,
+            "vat_percent" => 20.to_d,
             "unit_price_gross" => 0.52e2,
             "unit_price_net" => 0.433333e2,
             "total_price_gross" => 0.52e2,
@@ -729,8 +729,8 @@ RSpec.describe OrderTransformer do
         "order_items" => [
           {
             "item_type" => "item",
-            "quantity" => "1".to_d,
-            "vat_percent" => "20".to_d,
+            "quantity" => 1.to_d,
+            "vat_percent" => 20.to_d,
             "unit_price_gross" => 0.52e2,
             "unit_price_net" => 0.433333e2,
             "total_price_gross" => 0.52e2,
@@ -862,8 +862,8 @@ RSpec.describe OrderTransformer do
           "order_items" => [
             {
               "item_type" => "item",
-              "quantity" => "1".to_d,
-              "vat_percent" => "20".to_d,
+              "quantity" => 1.to_d,
+              "vat_percent" => 20.to_d,
               "unit_price_gross" => 0.52e2,
               "unit_price_net" => 0.433333e2,
               "total_price_gross" => 0.52e2,

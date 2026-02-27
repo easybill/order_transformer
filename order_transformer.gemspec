@@ -38,5 +38,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "pry-byebug", "~> 3.9"
   spec.add_development_dependency "super_diff", "~> 0.8"
   spec.add_development_dependency "gem-release", "~> 2.2"
-  spec.add_development_dependency "license_finder", "~> 6.0"
+  spec.add_development_dependency "license_finder", "~> 7.0"
 end
