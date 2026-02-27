@@ -1,6 +1,5 @@
 require "bundler/setup"
 require "super_diff/rspec"
-require "byebug"
 
 require "simplecov"
 SimpleCov.start

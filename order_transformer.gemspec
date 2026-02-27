@@ -27,15 +27,15 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_runtime_dependency "loofah", "~> 2.14"
+  spec.add_runtime_dependency "loofah", "~> 2.25"
+  spec.add_runtime_dependency "bigdecimal", "~> 4.0"
 
   spec.add_development_dependency "rspec", "~> 3.0"
   spec.add_development_dependency "simplecov", "~> 0.19"
   spec.add_development_dependency 'guard-rspec', '~> 4.7'
   spec.add_development_dependency 'coderay', '~> 1.1'
-  spec.add_development_dependency "rake", "~> 12.0"
-  spec.add_development_dependency "standard", "1.1.7"
-  spec.add_development_dependency "pry-byebug", "~> 3.9"
+  spec.add_development_dependency "rake", "~> 13.0"
+  spec.add_development_dependency "standard", "~> 1.31"
   spec.add_development_dependency "super_diff", "~> 0.8"
   spec.add_development_dependency "gem-release", "~> 2.2"
   spec.add_development_dependency "license_finder", "~> 7.0"
