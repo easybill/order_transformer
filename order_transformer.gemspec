@@ -35,7 +35,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'guard-rspec', '~> 4.7'
   spec.add_development_dependency 'coderay', '~> 1.1'
   spec.add_development_dependency "rake", "~> 12.0"
-  spec.add_development_dependency "standard", "1.1.7"
+  spec.add_development_dependency "standard", "~> 1.31"
   spec.add_development_dependency "super_diff", "~> 0.8"
   spec.add_development_dependency "gem-release", "~> 2.2"
   spec.add_development_dependency "license_finder", "~> 7.0"
